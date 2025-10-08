@@ -2,6 +2,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Aside from "./admin/components/Aside";
 import ListadoNotas from "./admin/pages/ListadoNotas";
 import RegistrarNota from "./admin/pages/RegistrarNota";
+import VistaNotasEstudiantes from "./admin/pages/VistaNotasEstudiantes";
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
               <Routes>
                 <Route path="/" element={<ListadoNotas />} />
                 <Route path="/registrar-nota" element={<RegistrarNota />} />
+                <Route path="/notas-estudiante" element={<VistaNotasEstudiantes />} />
               </Routes>
             </div>
           </div>

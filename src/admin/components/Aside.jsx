@@ -94,7 +94,8 @@ export default function Aside() {
                 <h6 className="collapse-header">Acciones:</h6>
                 <a className="collapse-item" href="/">Ver Notas</a>
                 <a className="collapse-item" href="/registrar-nota">Registrar Nota</a>
-
+                {/* 🔹 Nuevo enlace agregado */}
+                <a className="collapse-item" href="/notas-estudiante">Notas por Estudiante</a>
               </div>
             </div>
           </li>
