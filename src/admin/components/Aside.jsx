@@ -92,8 +92,9 @@ export default function Aside() {
             <div id="collapseNotas" className="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
               <div className="bg-white py-2 collapse-inner rounded">
                 <h6 className="collapse-header">Acciones:</h6>
-                <a className="collapse-item" href="listado-notas.html">Ver Notas</a>
-                <a className="collapse-item" href="crear-nota.html">Registrar Nota</a>
+                <a className="collapse-item" href="/">Ver Notas</a>
+                <a className="collapse-item" href="/registrar-nota">Registrar Nota</a>
+
               </div>
             </div>
           </li>
