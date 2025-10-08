@@ -1,4 +1,5 @@
 import ListadoNotas from "../pages/ListadoNotas"
+import RegistrarNota from "../pages/RegistrarNota"
 import Footer from "./Footer"
 import Header from "./Header"
 
@@ -20,8 +21,9 @@ export default function Content() {
                 <i className="fas fa-download fa-sm text-white-50"></i> Generar Reporte
               </a>
             </div>
-            {/* Contenido del dashboard */}
+            {/* Aquí va el contenido del dashboard */}
             <ListadoNotas />
+            <RegistrarNota />
           </div>
           <Footer />
         </div>

@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import EncabezadoNotas from "../components/PaginaSeguimientoNotas/EncabezadoNotas";
 import FiltroNotas from "../components/PaginaSeguimientoNotas/FiltroNotas";
 import TablaNotas from "../components/PaginaSeguimientoNotas/TablaNotas";
@@ -15,7 +16,7 @@ export default function ListadoNotas() {
         <EstadisticasNotas />
         <PaginacionNotas />
         <ModalVerNota />
-      </div>
+      </div>   
     </>
   );
 }

@@ -1,14 +1,21 @@
-import React from 'react'
+import { useState } from "react";
+import { Link } from "react-router-dom";
+import "./Aside.css";
 
 export default function Aside() {
+  const [activeMenu, setActiveMenu] = useState(null);
+
+  const toggleMenu = (menuName) => {
+    setActiveMenu((prev) => (prev === menuName ? null : menuName));
+  };
+
   return (
     <>
       {/* <!-- Sidebar --> */}
-      {/* <!-- Se carga desde archivo externo --> */}
       <div id="sidebar-wrapper">
         <ul className="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
           {/* <!-- Sidebar - Brand --> */}
-          <a className="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+          <a className="sidebar-brand d-flex align-items-center justify-content-center" href="#">
             <div className="sidebar-brand-icon rotate-n-15">
               <i className="fas fa-graduation-cap"></i>
             </div>
@@ -20,130 +27,106 @@ export default function Aside() {
 
           {/* <!-- Nav Item - Dashboard --> */}
           <li className="nav-item">
-            <a className="nav-link" href="index.html">
+            <Link className="nav-link" to="/">
               <i className="fas fa-fw fa-tachometer-alt"></i>
               <span>Dashboard</span>
-            </a>
+            </Link>
           </li>
 
           {/* <!-- Divider --> */}
           <hr className="sidebar-divider" />
 
           {/* <!-- Heading --> */}
-          <div className="sidebar-heading">
-            Módulos Educativos
-          </div>
+          <div className="sidebar-heading">Módulos Educativos</div>
 
           {/* <!-- Nav Item - Ingreso y registro --> */}
           <li className="nav-item">
-            <a className="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseIngreso"
-              aria-expanded="true" aria-controls="collapseIngreso">
+            <button className="nav-link collapsed" onClick={() => toggleMenu("ingreso")}>
               <i className="fas fa-fw fa-user-plus"></i>
               <span>Ingreso y registro</span>
-            </a>
-            <div id="collapseIngreso" className="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-              <div className="bg-white py-2 collapse-inner rounded">
-                <h6 className="collapse-header">Acciones:</h6>
-                <a className="collapse-item" href="listado-estudiantes.html">Ver Estudiantes</a>
-                <a className="collapse-item" href="crear-estudiante.html">Crear Estudiante</a>
-              </div>
+            </button>
+            <div className={`submenu ${activeMenu === "ingreso" ? "open" : ""}`}>
+              <h6 className="collapse-header">Acciones:</h6>
+              <Link className="collapse-item" to="/listado-estudiantes">Ver Estudiantes</Link>
+              <Link className="collapse-item" to="/crear-estudiante">Crear Estudiante</Link>
             </div>
           </li>
 
           {/* <!-- Nav Item - Hy estudiantil --> */}
           <li className="nav-item">
-            <a className="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseHistorial"
-              aria-expanded="true" aria-controls="collapseHistorial">
+            <button className="nav-link collapsed" onClick={() => toggleMenu("historial")}>
               <i className="fas fa-fw fa-history"></i>
               <span>Hy estudiantil</span>
-            </a>
-            <div id="collapseHistorial" className="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-              <div className="bg-white py-2 collapse-inner rounded">
-                <h6 className="collapse-header">Acciones:</h6>
-                <a className="collapse-item" href="listado-historial.html">Ver Historial</a>
-                <a className="collapse-item" href="crear-historial.html">Crear Registro</a>
-              </div>
+            </button>
+            <div className={`submenu ${activeMenu === "historial" ? "open" : ""}`}>
+              <h6 className="collapse-header">Acciones:</h6>
+              <Link className="collapse-item" to="/listado-historial">Ver Historial</Link>
+              <Link className="collapse-item" to="/crear-historial">Crear Registro</Link>
             </div>
           </li>
 
           {/* <!-- Nav Item - Modulo Familiar --> */}
           <li className="nav-item">
-            <a className="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseFamiliar"
-              aria-expanded="true" aria-controls="collapseFamiliar">
+            <button className="nav-link collapsed" onClick={() => toggleMenu("familiar")}>
               <i className="fas fa-fw fa-users"></i>
               <span>Módulo Familiar</span>
-            </a>
-            <div id="collapseFamiliar" className="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-              <div className="bg-white py-2 collapse-inner rounded">
-                <h6 className="collapse-header">Acciones:</h6>
-                <a className="collapse-item" href="listado-familiares.html">Ver Familiares</a>
-                <a className="collapse-item" href="crear-familiar.html">Crear Familiar</a>
-              </div>
+            </button>
+            <div className={`submenu ${activeMenu === "familiar" ? "open" : ""}`}>
+              <h6 className="collapse-header">Acciones:</h6>
+              <Link className="collapse-item" to="/listado-familiares">Ver Familiares</Link>
+              <Link className="collapse-item" to="/crear-familiar">Crear Familiar</Link>
             </div>
           </li>
 
           {/* <!-- Nav Item - Seguimiento de notas --> */}
           <li className="nav-item">
-            <a className="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseNotas"
-              aria-expanded="true" aria-controls="collapseNotas">
+            <button className="nav-link collapsed" onClick={() => toggleMenu("notas")}>
               <i className="fas fa-fw fa-clipboard-list"></i>
               <span>Seguimiento de notas</span>
-            </a>
-            <div id="collapseNotas" className="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-              <div className="bg-white py-2 collapse-inner rounded">
-                <h6 className="collapse-header">Acciones:</h6>
-                <a className="collapse-item" href="/">Ver Notas</a>
-                <a className="collapse-item" href="/registrar-nota">Registrar Nota</a>
-
-              </div>
+            </button>
+            <div className={`submenu ${activeMenu === "notas" ? "open" : ""}`}>
+              <h6 className="collapse-header">Acciones:</h6>
+              <Link className="collapse-item" to="/ver-notas">Ver Notas</Link>
+              <Link className="collapse-item" to="/registrar-nota">Registrar Nota</Link>
             </div>
           </li>
 
           {/* <!-- Nav Item - Asistencias --> */}
           <li className="nav-item">
-            <a className="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseAsistencias"
-              aria-expanded="true" aria-controls="collapseAsistencias">
+            <button className="nav-link collapsed" onClick={() => toggleMenu("asistencias")}>
               <i className="fas fa-fw fa-calendar-check"></i>
               <span>Asistencias</span>
-            </a>
-            <div id="collapseAsistencias" className="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-              <div className="bg-white py-2 collapse-inner rounded">
-                <h6 className="collapse-header">Acciones:</h6>
-                <a className="collapse-item" href="listado-asistencias.html">Ver Asistencias</a>
-                <a className="collapse-item" href="crear-asistencia.html">Registrar Asistencia</a>
-              </div>
+            </button>
+            <div className={`submenu ${activeMenu === "asistencias" ? "open" : ""}`}>
+              <h6 className="collapse-header">Acciones:</h6>
+              <Link className="collapse-item" to="/listado-asistencias">Ver Asistencias</Link>
+              <Link className="collapse-item" to="/crear-asistencia">Registrar Asistencia</Link>
             </div>
           </li>
 
           {/* <!-- Nav Item - Bienestar Estudiantil --> */}
           <li className="nav-item">
-            <a className="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseBienestar"
-              aria-expanded="true" aria-controls="collapseBienestar">
+            <button className="nav-link collapsed" onClick={() => toggleMenu("bienestar")}>
               <i className="fas fa-fw fa-heart"></i>
               <span>Bienestar Estudiantil</span>
-            </a>
-            <div id="collapseBienestar" className="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-              <div className="bg-white py-2 collapse-inner rounded">
-                <h6 className="collapse-header">Acciones:</h6>
-                <a className="collapse-item" href="listado-bienestar.html">Ver Registros</a>
-                <a className="collapse-item" href="crear-bienestar.html">Crear Registro</a>
-              </div>
+            </button>
+            <div className={`submenu ${activeMenu === "bienestar" ? "open" : ""}`}>
+              <h6 className="collapse-header">Acciones:</h6>
+              <Link className="collapse-item" to="/listado-bienestar">Ver Registros</Link>
+              <Link className="collapse-item" to="/crear-bienestar">Crear Registro</Link>
             </div>
           </li>
 
           {/* <!-- Nav Item - Estadísticas --> */}
           <li className="nav-item">
-            <a className="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseEstadisticas"
-              aria-expanded="true" aria-controls="collapseEstadisticas">
+            <button className="nav-link collapsed" onClick={() => toggleMenu("estadisticas")}>
               <i className="fas fa-fw fa-chart-bar"></i>
               <span>Estadísticas</span>
-            </a>
-            <div id="collapseEstadisticas" className="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-              <div className="bg-white py-2 collapse-inner rounded">
-                <h6 className="collapse-header">Acciones:</h6>
-                <a className="collapse-item" href="reportes.html">Ver Reportes</a>
-                <a className="collapse-item" href="graficos.html">Ver Gráficos</a>
-              </div>
+            </button>
+            <div className={`submenu ${activeMenu === "estadisticas" ? "open" : ""}`}>
+              <h6 className="collapse-header">Acciones:</h6>
+              <Link className="collapse-item" to="/reportes">Ver Reportes</Link>
+              <Link className="collapse-item" to="/graficos">Ver Gráficos</Link>
             </div>
           </li>
 
@@ -155,8 +138,8 @@ export default function Aside() {
             <button className="rounded-circle border-0" id="sidebarToggle"></button>
           </div>
         </ul>
-        {/* <!-- End of Sidebar --></hr> */}
+        {/* <!-- End of Sidebar --> */}
       </div>
     </>
-  )
+  );
 }

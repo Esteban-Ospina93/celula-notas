@@ -1,0 +1,40 @@
+.submenu {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.35s ease;
+  background-color: #ffffff;
+  border-radius: 0.35rem;
+  margin-left: 1rem;
+}
+
+.submenu.open {
+  max-height: 200px; /* ajusta según el contenido */
+}
+
+.submenu .collapse-item {
+  display: block;
+  color: #4e73df;
+  padding: 0.5rem 1rem;
+  text-decoration: none;
+  font-size: 0.9rem;
+  transition: background-color 0.2s;
+}
+
+.submenu .collapse-item:hover {
+  background-color: #f8f9fc;
+}
+
+.nav-link.collapsed {
+  width: 100%;
+  text-align: left;
+  border: none;
+  background: none;
+  color: inherit;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.nav-link.collapsed:focus {
+  outline: none;
+}
