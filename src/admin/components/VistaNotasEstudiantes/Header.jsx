@@ -6,10 +6,6 @@ export default function Header({ filters, setFilters }) {
     setFilters({ ...filters, [name]: value });
   };
 
-  const handleSearch = (e) => {
-    e.preventDefault();
-  };
-
   return (
     <div className="card shadow mb-4">
       <div className="card-header py-3 d-flex justify-content-between align-items-center">
@@ -19,24 +15,24 @@ export default function Header({ filters, setFilters }) {
       </div>
 
       <div className="card-body">
-        <form onSubmit={handleSearch}>
+        <form>
           <div className="row align-items-end">
 
-            {/* 🔹 Nombre del estudiante */}
+          {/* Nombres estudiante */}
             <div className="col-md-3 mb-3">
-              <label className="form-label">Nombre del Estudiante</label>
+              <center><label className="form-label">Nombre del Estudiante</label>
               <input
                 type="text"
                 className="form-control"
-                name="estudiante"
-                value={filters.estudiante}
-                onChange={handleChange}
-              />
+                value="Juan Manuel Ramírez Cardona"
+                disabled
+                readOnly
+              /></center>
             </div>
 
-            {/* 🔹 Materia */}
+            {/* Materia */}
             <div className="col-md-2 mb-3">
-              <label className="form-label">Materia</label>
+              <center><label className="form-label">Materia</label></center>
               <select
                 className="form-control"
                 name="materia"
@@ -45,15 +41,15 @@ export default function Header({ filters, setFilters }) {
               >
                 <option value="">Seleccionar</option>
                 <option value="Matemáticas">Matemáticas</option>
-                <option value="Ciencias">Sociales</option>
+                <option value="Sociales">Sociales</option>
                 <option value="Español">Español</option>
                 <option value="Inglés">Inglés</option>
               </select>
             </div>
 
-            {/* 🔹 Periodo */}
+            {/* Periodo */}
             <div className="col-md-2 mb-3">
-              <label className="form-label">Periodo</label>
+              <center><label className="form-label">Periodo</label></center>
               <select
                 className="form-control"
                 name="periodo"
@@ -63,14 +59,12 @@ export default function Header({ filters, setFilters }) {
                 <option value="">Seleccionar</option>
                 <option value="1">Periodo 1</option>
                 <option value="2">Periodo 2</option>
-                <option value="3">Periodo 3</option>
-                <option value="4">Periodo 4</option>
               </select>
             </div>
 
-            {/* 🔹 Docente */}
+            {/* Docente */}
             <div className="col-md-2 mb-3">
-              <label className="form-label">Docente</label>
+              <center><label className="form-label">Docente</label></center>
               <select
                 className="form-control"
                 name="docente"
@@ -85,9 +79,9 @@ export default function Header({ filters, setFilters }) {
               </select>
             </div>
 
-            {/* 🔹 Estado */}
+            {/* Estado */}
             <div className="col-md-2 mb-3">
-              <label className="form-label">Estado</label>
+              <center><label className="form-label">Estado</label></center>
               <select
                 className="form-control"
                 name="estado"
@@ -100,15 +94,10 @@ export default function Header({ filters, setFilters }) {
               </select>
             </div>
 
-            {/* 🔹 Botón de búsqueda */}
-            <div className="col-md-1 mb-3 d-flex align-items-end">
-              <button type="submit" className="btn btn-primary w-100">
-                <i className="fas fa-search"></i>
-              </button>
-            </div>
           </div>
         </form>
       </div>
     </div>
   );
 }
+
