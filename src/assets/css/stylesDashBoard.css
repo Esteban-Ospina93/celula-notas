@@ -4,17 +4,17 @@
   transition: max-height 0.35s ease;
   background-color: #ffffff;
   border-radius: 0.35rem;
-  margin-left: 1rem;
+  margin: 0.4rem;
 }
 
 .submenu.open {
-  max-height: 200px; /* ajusta según el contenido */
+  max-height: 200px;
 }
 
 .submenu .collapse-item {
   display: block;
   color: #4e73df;
-  padding: 0.5rem 1rem;
+  padding: 0.4rem 0.9rem;
   text-decoration: none;
   font-size: 0.9rem;
   transition: background-color 0.2s;
@@ -37,4 +37,12 @@
 
 .nav-link.collapsed:focus {
   outline: none;
+}
+
+.dropdown-menu {
+  display: block !important;
+}
+
+button {
+  border: none;
 }

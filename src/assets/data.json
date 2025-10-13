@@ -1,0 +1,32 @@
+{
+    "users": [
+        {
+            "id":1,
+            "username": "Esteban Ospina",
+            "email": "correo@example.com",
+            "password": "1234",
+            "rol": "admin"
+        },
+        {
+            "id":2,
+            "username": "Juan Pablo Rivera",
+            "email": "correo1@example.com",
+            "password": "1234",
+            "rol": "professor"
+        },
+        {
+            "id":3,
+            "username": "Jason",
+            "email": "correo2@example.com",
+            "password": "1234",
+            "rol": "student"
+        },
+        {
+            "id":4,
+            "username": "Sara",
+            "email": "correo3@example.com",
+            "password": "1234",
+            "rol": "student"
+        }
+    ]
+}

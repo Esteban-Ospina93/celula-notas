@@ -6,6 +6,7 @@ import EstadisticasNotas from "../components/PaginaSeguimientoNotas/Estadisticas
 import PaginacionNotas from "../components/PaginaSeguimientoNotas/PaginacionNotas";
 import ModalVerNota from "../components/PaginaSeguimientoNotas/ModalVerNota";
 
+
 export default function ListadoNotas() {
   return (
     <>

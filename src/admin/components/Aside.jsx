@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import "./Aside.css";
+import "../../assets/css/stylesDashBoard.css";
 
 export default function Aside() {
   const [activeMenu, setActiveMenu] = useState(null);

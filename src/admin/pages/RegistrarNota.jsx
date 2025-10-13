@@ -1,8 +1,8 @@
 import { Link } from "react-router-dom";
-import EncabezadoRegistrar from "../components/PaginaRegistrarNota/EncabezadoRegistrar";
-import FormularioNota from "../components/PaginaRegistrarNota/FormularioNota";
-import PanelLateral from "../components/PaginaRegistrarNota/PanelLateral";
-import BotonRegistrar from "../components/PaginaRegistrarNota/BotonRegistrar";
+import EncabezadoRegistrar from "../components/ComponentsRegistrarNota/EncabezadoRegistrar";
+import FormularioNota from "../components/ComponentsRegistrarNota/FormularioNota";
+import PanelLateral from "../components/ComponentsRegistrarNota/PanelLateral";
+import BotonRegistrar from "../components/ComponentsRegistrarNota/BotonRegistrar";
 
 export default function RegistrarNota() {
   return (
