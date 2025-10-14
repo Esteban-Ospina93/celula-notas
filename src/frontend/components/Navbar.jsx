@@ -19,7 +19,12 @@ export default function NavBar() {
                             <li className="nav-item"><a className="nav-link" href="#degrees">Academics</a></li>
                             <li className="nav-item"><a className="nav-link" href="#info">Faculty</a></li>
                             <li className="nav-item"><a className="nav-link" href="#footer">Contact</a></li>
-                            <li className="nav-item"><a className="nav-link btn btn-primary text-white ms-2" href="#footer">Campus Virtual</a></li>
+                            <li className="nav-item">
+  <a className="nav-link btn btn-primary text-white ms-2" href="/Login">
+    Campus Virtual
+  </a>
+</li>
+
                         </ul>
                     </div>
                 </div>
