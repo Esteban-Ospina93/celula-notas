@@ -18,6 +18,7 @@ import NotFound from "./admin/pages/NotFound";
 import DashBoardPage from "./admin/pages/DashBoardPage";
 import AdminPage from "./admin/pages/AdminPage";
 import AuthContext from "./context/AuthContext";
+import VistaNotasEstudiantes from "./admin/pages/VistaNotasEstudiantes";
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(localStorage.getItem('isAuthenticated') == "true");
@@ -85,8 +86,9 @@ function App() {
             <Route element={<RoleRoutes allowedRoles={["admin", "professor"]} />}>
               <Route path="/Dashboard/professor" element={<ProfessorWrapper />} />
             </Route>
-            <Route element={<RoleRoutes allowedRoles={["student"]} />}>
-              <Route path="/Dashboard/student" element={<StudentWrapper />} />
+            <Route element={<RoleRoutes allowedRoles={["student"]}/>}>
+              <Route path="/Dashboard/student" element={<StudentPage />} />
+              <Route path="/notas-estudiante" element={<VistaNotasEstudiantes />} />
             </Route>
             <Route element={<RoleRoutes allowedRoles={["family"]} />}>
               <Route path="/Dashboard/family" element={<FamilyPage />} />
