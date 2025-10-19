@@ -1,7 +1,10 @@
-import React from 'react'
+
 
 export default function StudentPage() {
   return (
-    <div>StudentPage</div>
+    <div>
+      <h1>Panel de control</h1>
+      <p>{user.rol}: {user.username} </p>
+    </div>
   )
 }

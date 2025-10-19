@@ -1,9 +1,6 @@
-import { Routes, Route, Navigate } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import { useState, useEffect } from "react";
 
-// import ListadoNotas from "./admin/pages/ListadoNotas";
-// import RegistrarNota from "./admin/pages/RegistrarNota";
-// import Aside from "./admin/components/Aside";
 import Login from "./frontend/pages/Login";
 import Register from "./frontend/pages/Register";
 import HomePage from "./frontend/pages/HomePage";
@@ -17,9 +14,10 @@ import NotFound from "./admin/pages/NotFound";
 import DashBoardPage from "./admin/pages/DashBoardPage";
 import AdminPage from "./admin/pages/AdminPage";
 import AuthContext from "./context/AuthContext";
-
-
-
+import VistaNotasEstudiantes from "./admin/pages/VistaNotasEstudiantes";
+import DashBoardLayout from "./admin/pages/DashBoardLayout";
+import RegistrarNota from "./admin/pages/RegistrarNota";
+import ListadoNotas from "./admin/pages/ListadoNotas";
 
 
 function App() {
@@ -43,7 +41,6 @@ function App() {
     setUserName('');
     localStorage.removeItem('isAuthenticated');
     localStorage.removeItem('userName');
-
   };
 
   return (
@@ -59,31 +56,21 @@ function App() {
 
           {/* Rutas privadas */}
           <Route element={<PrivateRoutes />} >
-            <Route element={<RoleRoutes allowedRoles={["admin","professor"]}/>}>
-              <Route path="/Dashboard" element={<DashBoardPage />} />
-            </Route>
-            <Route element={<RoleRoutes allowedRoles={["admin"]}/>}>
-              <Route path="/Dashboard/admin" element={<AdminPage />} />
-            </Route>
-            <Route element={<RoleRoutes allowedRoles={["admin","professor"]}/>}>
-              <Route path="/Dashboard/professor" element={<ProfessorPage />} />
-            </Route>
-            <Route element={<RoleRoutes allowedRoles={["student"]}/>}>
-              <Route path="/Dashboard/student" element={<StudentPage />} />
-            </Route>
-            <Route element={<RoleRoutes allowedRoles={["family"]}/>}>
-              <Route path="/Dashboard/family" element={<FamilyPage />} />
-            </Route>
-            {/* <Route path="/Dashboard" element={isAuthenticated ? <Dashboard user={userName} onLogout={handleLogout} /> : <Navigate to="/Login" />} />
-          <Route path="/Dashboard/Docente" element={isAuthenticated ? <PageDocentes user={userName} onLogout={handleLogout} /> : <Navigate to="/Login" />} />
-          <Route path="/Dashboard/Estudiante" element={isAuthenticated ? <PageEstudiantes user={userName} onLogout={handleLogout} /> : <Navigate to="/Login" />} />
-          <Route path="/Dashboard/Familiar" element={isAuthenticated ? <PageFamiliares user={userName} onLogout={handleLogout} /> : <Navigate to="/Login" />} /> */}
-          {/* <Route path="/ver-notas" element={<ListadoNotas />} />
-          <Route path="/registrar-nota" element={<RegistrarNota />} /> */}
+            <Route element={<RoleRoutes allowedRoles={["admin", "professor", "student", "family"]} />}>
+              <Route path="/Dashboard" element={<DashBoardLayout />} >
+                <Route index element={<DashBoardPage />} />
+                  <Route path="admin" element={<AdminPage />} />
+                  <Route path="ver-notas" element={<ListadoNotas />} />
+                  <Route path="registrar-nota" element={<RegistrarNota />} />
+                  <Route path="professor" element={<ProfessorPage />} />
+                  <Route path="student" element={<StudentPage />} />
+                  <Route path="ver-mis-notas" element={<VistaNotasEstudiantes />} />
+                  <Route path="family" element={<FamilyPage />} />
+                </Route>
+              </Route>
           </Route>
-
-          {/* Ruta de error 404 */}
-          <Route path="*" element={<NotFound />} />
+            {/* Ruta de error 404 */}
+            <Route path="*" element={<NotFound />} />
         </Routes>
       </AuthContext>
     </>

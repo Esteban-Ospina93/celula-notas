@@ -2,6 +2,9 @@
 
 export default function FamilyPage() {
   return (
-    <div>FamilyPage</div>
+    <div>
+      <h1>Panel de control</h1>
+      <p>{user.rol}: {user.username} </p>
+    </div>
   )
 }

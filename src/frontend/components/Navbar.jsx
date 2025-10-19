@@ -1,6 +1,12 @@
 import logo from "../imagenes/logo.png";
+import { useNavigate } from "react-router-dom";
 
 export default function NavBar() {
+    let navigate = useNavigate();
+    let handleLoginClick = () => {
+        navigate("/login");
+    }
+
     return (
         <>
             <nav className="navbar navbar-expand-lg navbar-light bg-white shadow-sm sticky-top">
@@ -19,7 +25,7 @@ export default function NavBar() {
                             <li className="nav-item"><a className="nav-link" href="#degrees">Academics</a></li>
                             <li className="nav-item"><a className="nav-link" href="#info">Faculty</a></li>
                             <li className="nav-item"><a className="nav-link" href="#footer">Contact</a></li>
-                            <li className="nav-item"><a className="nav-link btn btn-primary text-white ms-2" href="#footer">Campus Virtual</a></li>
+                            <li className="nav-item"><button className="nav-link btn btn-primary text-white ms-2" onClick={handleLoginClick}>Login</button></li>
                         </ul>
                     </div>
                 </div>

@@ -10,7 +10,7 @@ export default function PrivateRoutes() {
   useEffect(() => {
     let time = setTimeout(() =>{
       setSpinner(false);
-    },500);
+    },1000);
     return () => clearTimeout(time);
   }, []) 
   if (loading || spinner) {

@@ -38,7 +38,10 @@ export default function Header() {
               <button onClick={() => setProfileMenu(!profileMenu)}
                 className="nav-link dropdown-toggle" type="button" id="userDropdown" role="button"
                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <span id="nombre-usuario" className="mr-2 d-none d-lg-inline text-gray-600 small">{user.username}</span>
+                  <div className="d-flex flex-column align-items-end mr-2">
+                    <span id="nombre-usuario" className="mr-2 d-none d-lg-inline text-gray-600 font-weight">{user.username}</span>
+                    <span id="nombre-usuario" className="mr-2 d-none d-lg-inline text-gray-600 small">{user.rol}</span>
+                  </div>
                 <img className="img-profile rounded-circle" src={profile} />
               </button>
               {/* <!-- Dropdown - User Information --> */}

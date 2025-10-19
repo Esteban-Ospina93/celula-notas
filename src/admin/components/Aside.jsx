@@ -1,12 +1,19 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import "../../assets/css/stylesDashBoard.css";
+import { getLinkNavigate } from "../../components/common/getLinkNavigate";
+import { useAuth } from "../../context/AuthContext";
 
 export default function Aside() {
-  const [activeMenu, setActiveMenu] = useState(null);
+  let { user } = useAuth();
+  let rol = user.rol;
+  let [activeMenu, setActiveMenu] = useState(null);
+  let roleRoutes = rol ? [...getLinkNavigate[rol], ...getLinkNavigate.all] : [];
+  // console.log("Role:", rol);
+  // console.log("roleRoutes:", roleRoutes);
 
-  const toggleMenu = (menuName) => {
-    setActiveMenu((prev) => (prev === menuName ? null : menuName));
+  const toggleMenu = (label) => {
+    setActiveMenu((prev) => (prev === label ? null : label));
   };
 
   return (
@@ -15,7 +22,7 @@ export default function Aside() {
       <div id="sidebar-wrapper">
         <ul className="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
           {/* <!-- Sidebar - Brand --> */}
-          <a className="sidebar-brand d-flex align-items-center justify-content-center" href="#">
+          <a className="sidebar-brand d-flex align-items-center" href="#">
             <div className="sidebar-brand-icon rotate-n-15">
               <i className="fas fa-graduation-cap"></i>
             </div>
@@ -27,7 +34,7 @@ export default function Aside() {
 
           {/* <!-- Nav Item - Dashboard --> */}
           <li className="nav-item">
-            <Link className="nav-link" to="/">
+            <Link className="nav-link" to="/Dashboard">
               <i className="fas fa-fw fa-tachometer-alt"></i>
               <span>Dashboard</span>
             </Link>
@@ -79,17 +86,30 @@ export default function Aside() {
           </li>
 
           {/* <!-- Nav Item - Seguimiento de notas --> */}
-          <li className="nav-item">
-            <button className="nav-link collapsed" onClick={() => toggleMenu("notas")}>
-              <i className="fas fa-fw fa-clipboard-list"></i>
-              <span>Seguimiento de notas</span>
-            </button>
-            <div className={`submenu ${activeMenu === "notas" ? "open" : ""}`}>
-              <h6 className="collapse-header">Acciones:</h6>
-              <Link className="collapse-item" to="/ver-notas">Ver Notas</Link>
-              <Link className="collapse-item" to="/registrar-nota">Registrar Nota</Link>
-            </div>
-          </li>
+          {roleRoutes.map((link, i) => (
+            <li className="nav-item" key={i}>
+              <button
+                className="nav-link collapsed"
+                onClick={() => toggleMenu(link.label)}
+              >
+                <i className={link.icon}></i>
+                <span>{link.label}</span>
+              </button>
+
+              {link.children && (
+                <div className={`submenu ${activeMenu === link.label ? "open" : ""}`}>
+                  <h6 className="collapse-header">Acciones:</h6>
+                  {link.children.map((child, j) => (
+                    <Link key={j} className="collapse-item" to={child.path}>
+                      {child.label}
+                    </Link>
+                  ))}
+                </div>
+              )}
+            </li>
+          ))}
+
+
 
           {/* <!-- Nav Item - Asistencias --> */}
           <li className="nav-item">

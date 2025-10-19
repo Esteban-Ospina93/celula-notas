@@ -46,3 +46,11 @@
 button {
   border: none;
 }
+
+.sidebar .sidebar-brand {
+  font-weight: 600;
+}
+
+.font-weight {
+  font-weight: 600;
+}
