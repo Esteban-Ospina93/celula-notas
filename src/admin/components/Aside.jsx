@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import { useAuth } from "../../context/AuthContext";
 import "../../assets/css/stylesDashBoard.css";
 import { getLinkNavigate } from "../../components/common/getLinkNavigate";
-import { useAuth } from "../../context/AuthContext";
 
 export default function Aside() {
   let { user } = useAuth();
@@ -47,43 +47,49 @@ export default function Aside() {
           <div className="sidebar-heading">Módulos Educativos</div>
 
           {/* <!-- Nav Item - Ingreso y registro --> */}
-          <li className="nav-item">
-            <button className="nav-link collapsed" onClick={() => toggleMenu("ingreso")}>
-              <i className="fas fa-fw fa-user-plus"></i>
-              <span>Ingreso y registro</span>
-            </button>
-            <div className={`submenu ${activeMenu === "ingreso" ? "open" : ""}`}>
-              <h6 className="collapse-header">Acciones:</h6>
-              <Link className="collapse-item" to="/listado-estudiantes">Ver Estudiantes</Link>
-              <Link className="collapse-item" to="/crear-estudiante">Crear Estudiante</Link>
-            </div>
-          </li>
+          {rol === "admin" && (
+            <li className="nav-item">
+              <button className="nav-link collapsed" onClick={() => toggleMenu("ingreso")}>
+                <i className="fas fa-fw fa-user-plus"></i>
+                <span>Ingreso y registro</span>
+              </button>
+              <div className={`submenu ${activeMenu === "ingreso" ? "open" : ""}`}>
+                <h6 className="collapse-header">Acciones:</h6>
+                <Link className="collapse-item" to="/listado-estudiantes">Ver Estudiantes</Link>
+                <Link className="collapse-item" to="/crear-estudiante">Crear Estudiante</Link>
+              </div>
+            </li>
+          )}
 
           {/* <!-- Nav Item - Hy estudiantil --> */}
-          <li className="nav-item">
-            <button className="nav-link collapsed" onClick={() => toggleMenu("historial")}>
-              <i className="fas fa-fw fa-history"></i>
-              <span>Hy estudiantil</span>
-            </button>
-            <div className={`submenu ${activeMenu === "historial" ? "open" : ""}`}>
-              <h6 className="collapse-header">Acciones:</h6>
-              <Link className="collapse-item" to="/listado-historial">Ver Historial</Link>
-              <Link className="collapse-item" to="/crear-historial">Crear Registro</Link>
-            </div>
-          </li>
+          {["admin", "professor"].includes(rol) && (
+            <li className="nav-item">
+              <button className="nav-link collapsed" onClick={() => toggleMenu("historial")}>
+                <i className="fas fa-fw fa-history"></i>
+                <span>Hy estudiantil</span>
+              </button>
+              <div className={`submenu ${activeMenu === "historial" ? "open" : ""}`}>
+                <h6 className="collapse-header">Acciones:</h6>
+                <Link className="collapse-item" to="/listado-historial">Ver Historial</Link>
+                <Link className="collapse-item" to="/crear-historial">Crear Registro</Link>
+              </div>
+            </li>
+          )}
 
           {/* <!-- Nav Item - Modulo Familiar --> */}
-          <li className="nav-item">
-            <button className="nav-link collapsed" onClick={() => toggleMenu("familiar")}>
-              <i className="fas fa-fw fa-users"></i>
-              <span>Módulo Familiar</span>
-            </button>
-            <div className={`submenu ${activeMenu === "familiar" ? "open" : ""}`}>
-              <h6 className="collapse-header">Acciones:</h6>
-              <Link className="collapse-item" to="/listado-familiares">Ver Familiares</Link>
-              <Link className="collapse-item" to="/crear-familiar">Crear Familiar</Link>
-            </div>
-          </li>
+          {rol === "family" && (
+            <li className="nav-item">
+              <button className="nav-link collapsed" onClick={() => toggleMenu("familiar")}>
+                <i className="fas fa-fw fa-users"></i>
+                <span>Módulo Familiar</span>
+              </button>
+              <div className={`submenu ${activeMenu === "familiar" ? "open" : ""}`}>
+                <h6 className="collapse-header">Acciones:</h6>
+                <Link className="collapse-item" to="/listado-familiares">Ver Familiares</Link>
+                <Link className="collapse-item" to="/crear-familiar">Crear Familiar</Link>
+              </div>
+            </li>
+          )}
 
           {/* <!-- Nav Item - Seguimiento de notas --> */}
           {roleRoutes.map((link, i) => (
@@ -112,30 +118,34 @@ export default function Aside() {
 
 
           {/* <!-- Nav Item - Asistencias --> */}
-          <li className="nav-item">
-            <button className="nav-link collapsed" onClick={() => toggleMenu("asistencias")}>
-              <i className="fas fa-fw fa-calendar-check"></i>
-              <span>Asistencias</span>
-            </button>
-            <div className={`submenu ${activeMenu === "asistencias" ? "open" : ""}`}>
-              <h6 className="collapse-header">Acciones:</h6>
-              <Link className="collapse-item" to="/listado-asistencias">Ver Asistencias</Link>
-              <Link className="collapse-item" to="/crear-asistencia">Registrar Asistencia</Link>
-            </div>
-          </li>
+          {["admin", "professor"].includes(rol) && (
+            <li className="nav-item">
+              <button className="nav-link collapsed" onClick={() => toggleMenu("asistencias")}>
+                <i className="fas fa-fw fa-calendar-check"></i>
+                <span>Asistencias</span>
+              </button>
+              <div className={`submenu ${activeMenu === "asistencias" ? "open" : ""}`}>
+                <h6 className="collapse-header">Acciones:</h6>
+                <Link className="collapse-item" to="/listado-asistencias">Ver Asistencias</Link>
+                <Link className="collapse-item" to="/crear-asistencia">Registrar Asistencia</Link>
+              </div>
+            </li>
+          )}
 
           {/* <!-- Nav Item - Bienestar Estudiantil --> */}
-          <li className="nav-item">
-            <button className="nav-link collapsed" onClick={() => toggleMenu("bienestar")}>
-              <i className="fas fa-fw fa-heart"></i>
-              <span>Bienestar Estudiantil</span>
-            </button>
-            <div className={`submenu ${activeMenu === "bienestar" ? "open" : ""}`}>
-              <h6 className="collapse-header">Acciones:</h6>
-              <Link className="collapse-item" to="/listado-bienestar">Ver Registros</Link>
-              <Link className="collapse-item" to="/crear-bienestar">Crear Registro</Link>
-            </div>
-          </li>
+          {["admin", "professor"].includes(rol) && (
+            <li className="nav-item">
+              <button className="nav-link collapsed" onClick={() => toggleMenu("bienestar")}>
+                <i className="fas fa-fw fa-heart"></i>
+                <span>Bienestar Estudiantil</span>
+              </button>
+              <div className={`submenu ${activeMenu === "bienestar" ? "open" : ""}`}>
+                <h6 className="collapse-header">Acciones:</h6>
+                <Link className="collapse-item" to="/listado-bienestar">Ver Registros</Link>
+                <Link className="collapse-item" to="/crear-bienestar">Crear Registro</Link>
+              </div>
+            </li>
+          )}
 
           {/* <!-- Nav Item - Estadísticas --> */}
           <li className="nav-item">

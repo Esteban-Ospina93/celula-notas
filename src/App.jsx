@@ -24,12 +24,10 @@ function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(localStorage.getItem('isAuthenticated') == "true");
   const [userName, setUserName] = useState(localStorage.getItem('userName') || "");
 
-  //console.log("Usuario logeado: " + isAuthenticated);
-
   useEffect(() => {
     localStorage.setItem('isAuthenticated', isAuthenticated);
     localStorage.setItem('userName', userName);
-  }, [isAuthenticated, userName])
+  }, [isAuthenticated, userName]);
 
   const handleLogin = (userName) => {
     setIsAuthenticated(true); //token de autorización.
