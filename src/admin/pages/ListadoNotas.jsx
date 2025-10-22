@@ -13,7 +13,7 @@ export default function ListadoNotas() {
       <div className="container-fluid">
         <EncabezadoNotas />
         <FiltroNotas />
-        <TablaNotas />
+        <TablaNotas notas={notas} />
         <EstadisticasNotas />
         <PaginacionNotas />
         <ModalVerNota />

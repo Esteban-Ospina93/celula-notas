@@ -55,20 +55,20 @@ export default function TablaNotas() {
               </tr>
             ) : (
               notas.map((nota, index) => {
-                const promedio = parseFloat(nota.promedio);
+                const promedio = parseFloat(nota.promedio || nota.valor || 0);
                 const estado = promedio >= 3.0 ? "Aprobado" : "Reprobado";
                 const badgeClass = promedio >= 3.0 ? "badge-success" : "badge-danger";
 
                 return (
                   <tr key={index}>
                     <td>{index + 1}</td>
-                    <td>{nota.estudiante}</td>
-                    <td>{nota.asignatura}</td>
-                    <td>{nota.periodo}</td>
-                    <td>{nota.nota1}</td>
-                    <td>{nota.nota2}</td>
-                    <td>{nota.nota3}</td>
-                    <td>{nota.promedio}</td>
+                    <td>{nota.estudiante || "—"}</td>
+                    <td>{nota.asignatura || "—"}</td>
+                    <td>{nota.periodo || nota.tipoevaluacion || "—"}</td>
+                    <td>{nota.nota1 || "—"}</td>
+                    <td>{nota.nota2 || "—"}</td>
+                    <td>{nota.nota3 || "—"}</td>
+                    <td>{promedio}</td>
                     <td><span className={`badge ${badgeClass}`}>{estado}</span></td>
                     <td>
                       <button className="btn btn-sm btn-warning me-1">

@@ -9,23 +9,23 @@ import { useAuth } from "../../context/AuthContext";
 import { getDashboardRoutes } from "../../components/common/getDashboardRoutes";
 
 export default function Login() {
-  let {login} = useAuth();
+  let { login } = useAuth();
   let navigate = useNavigate();
   console.log(datos.users);
-  let {register, handleSubmit, formState : { errors } } = useForm();
+  let { register, handleSubmit, formState: { errors } } = useForm();
 
   const onSumbited = (dataForm) => {
     console.log("form user", dataForm);
     //Logica para verificar un usuario
-    let userVerify = datos.users.find((u)=>{
+    let userVerify = datos.users.find((u) => {
       return u.email == dataForm.email && u.password == dataForm.password;
     })
     console.log("usuario", userVerify)
     //Guardar el usuario en localStorage y redirigir a una ruta correspondiente
-    if(userVerify) {
+    if (userVerify) {
       login(userVerify);
       navigate(getDashboardRoutes(userVerify.rol));
-    }else {
+    } else {
       alert("Credenciales incorrectas o usuario no encontrado");
     }
   }
@@ -47,32 +47,75 @@ export default function Login() {
 
   return (
     <>
-    <NavBar />
-      <div className="container">
-        <div className="row justify-content-center">
-          <div className="col-sm-8">
-            <h1 className='text-center text-secondary my-5'>Bienvenido! ingresa tu cuenta</h1>
+      <NavBar />
+      <div
+        className="d-flex justify-content-center align-items-center vh-100"
+        style={{
+          background: "linear-gradient(135deg, #000000ff, #3a4345ff)",
+        }}
+      >
+        <div className="card shadow-lg p-4" style={{ width: "22rem" }}>
+          <h4 className="text-center mb-4 text-dark">Iniciar Sesión</h4>
+          <form onSubmit={handleSubmit(onSumbited)}>
+            <div className="mb-3">
+              <label
+                htmlFor="exampleDropdownFormEmail1"
+                className="form-label fw-semibold"
+              >
+                Correo electrónico
+              </label>
+              <input 
+                {...register("email", {required: true})}                
+                type="email"
+                className="form-control"
+                id="exampleDropdownFormEmail1"
+                placeholder="email@example.com"
+                required
+              />
+              { errors.correo && <p className=" text-danger">Debes escribir un correo</p> }
+            </div>
+            <div className="mb-3">
+              <label
+                htmlFor="exampleDropdownFormPassword1"
+                className="form-label fw-semibold"
+              >
+                Contraseña
+              </label>
+              <input 
+                {...register("password", {required: true})}                
+                type="password"
+                className="form-control"
+                id="exampleDropdownFormPassword1"
+                placeholder="********"
+                required
+              />
+              { errors.contrasena && <p classNameName=" text-danger">La contraseña es obligatoria</p> }
+            </div>
+            <div className="form-check mb-3">
+              <input
+                type="checkbox"
+                className="form-check-input"
+                id="dropdownCheck"
+              />
+              <label className="form-check-label" htmlFor="dropdownCheck">
+                Recordarme
+              </label>
+            </div>
+            <button type="submit" className="btn btn-primary w-100">
+              Ingresar
+            </button>
+          </form>
+
+          <hr />
+          <div className="text-center">
+            <Link to={"/Register"} className="d-block mb-1 text-decoration-none">
+              ¿Nuevo aquí? Regístrate
+            </Link>
+            <a href="#" className="text-muted text-decoration-none">
+              ¿Olvidaste tu contraseña?
+            </a>
           </div>
-          <div className="col-sm-8 m-4">
-            <form onSubmit={handleSubmit(onSumbited)} className='bg-secondary bg-primary-subtle p-3 rounded'>
-              <div className="mb-3">
-                <label htmlFor="exampleInputEmail1" className="form-label">Email address</label>
-                <input {...register("email", {required: true})} type="email" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" />
-                { errors.correo && <p className=" text-danger">Debes escribir un correo</p> }
-              </div>
-              <div className="mb-3">
-                <label htmlFor="exampleInputPassword1" className="form-label">Password</label>
-                <input {...register("password", {required: true})} type="password" className="form-control" id="exampleInputPassword1" />
-                { errors.contrasena && <p className=" text-danger">La contraseña es obligatoria</p> }
-              </div>
-              <div className="mb-3 form-check">
-                <input type="checkbox" className="form-check-input" id="exampleCheck1" />
-                  <label className="form-check-label" htmlFor="exampleCheck1">Remember Me</label>
-              </div>
-              <button type="submit" className="btn btn-success">Login</button>
-            </form>
-          </div>
-        </div>      
+        </div>
       </div>
       <Footer />
     </>
