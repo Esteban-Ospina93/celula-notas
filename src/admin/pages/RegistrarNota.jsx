@@ -1,5 +1,9 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate, Link } from "react-router-dom";
+import { crearNota } from "../services/notasService";
+import { obtenerEstudiantes } from "../services/estudianteService";
+import { obtenerMaterias } from "../services/materiaService";
+
 import EncabezadoRegistrar from "../components/ComponentsRegistrarNota/EncabezadoRegistrar";
 import PanelLateral from "../components/ComponentsRegistrarNota/PanelLateral";
 import FormularioNota from "../components/ComponentsRegistrarNota/FormularioNota";
@@ -9,35 +13,51 @@ export default function RegistrarNota() {
   const navigate = useNavigate();
 
   const [nota, setNota] = useState({
+    tipoNota: "",
+    valor: "",
+    fecha: "",
     estudiante: "",
     asignatura: "",
-    periodo: "",
-    docente: "",
-    nota1: "",
-    nota2: "",
-    nota3: "",
     observaciones: "",
-    recomendaciones: "",
-    fecha: "",
+    recomendaciones: ""
   });
+
+  const [estudiantes, setEstudiantes] = useState([]);
+  const [materias, setMaterias] = useState([]);
+
+  useEffect(() => {
+    obtenerEstudiantes().then(res => {
+      setEstudiantes(res.data);
+    });
+    obtenerMaterias().then(res => {
+      setMaterias(res.data);
+    });
+  }, []);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setNota((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = () => {
-    const promedio =
-      (parseFloat(nota.nota1 || 0) * 0.3 +
-        parseFloat(nota.nota2 || 0) * 0.3 +
-        parseFloat(nota.nota3 || 0) * 0.4).toFixed(2);
+  const handleSubmit = async () => {
+    try {
+      const notaDTO = {
+        nombre: nota.tipoNota,
+        valor: parseFloat(nota.valor),
+        fecha: nota.fecha,
+        estudiante: { id: parseInt(nota.estudiante) },
+        materia: { id: parseInt(nota.asignatura) },
+        observaciones: nota.observaciones,
+        recomendaciones: nota.recomendaciones
+      };
 
-    const nuevaNota = { ...nota, promedio };
-
-    const notasGuardadas = JSON.parse(localStorage.getItem("notas")) || [];
-    localStorage.setItem("notas", JSON.stringify([...notasGuardadas, nuevaNota]));
-
-    navigate("../ver-notas");
+      await crearNota(notaDTO);
+      alert("La nota fue registrada con éxito");
+      navigate("../ver-notas");
+    } catch (error) {
+      console.error("Error al registrar nota:", error);
+      alert("Hubo un error al registrar la nota");
+    }
   };
 
   return (
@@ -49,7 +69,12 @@ export default function RegistrarNota() {
             ← Volver al listado de notas
           </Link>
 
-          <FormularioNota nota={nota} onChange={handleChange} />
+          <FormularioNota
+            nota={nota}
+            onChange={handleChange}
+            estudiantes={estudiantes}
+            materias={materias}
+          />
           <BotonRegistrar onSubmit={handleSubmit} />
         </div>
         <div className="col-md-4">

@@ -1,4 +1,4 @@
-export default function FormularioNota({ nota, onChange}) {
+export default function FormularioNota({ nota, onChange, estudiantes = [], materias = [] }) {
   return (
     <form>
       {/* Información básica */}
@@ -8,113 +8,69 @@ export default function FormularioNota({ nota, onChange}) {
           <select
             name="estudiante"
             className="form-control"
-            value={nota.estudiante}
+            value={String(nota.estudiante)}
             onChange={onChange}
           >
             <option value="">Seleccione...</option>
-            <option value="Juan Pérez">Juan Pérez</option>
-            <option value="Ana Gómez">Ana Gómez</option>
-            <option value="Luis Torres">Luis Torres</option>
+            {estudiantes.map(e => (
+              <option key={e.id} value={String(e.id)}>
+                {`Estudiante #${e.id}`}
+              </option>
+            ))}
           </select>
         </div>
+
         <div className="col-sm-6">
           <label>Asignatura</label>
           <select
             name="asignatura"
             className="form-control"
-            value={nota.asignatura}
+            value={String(nota.asignatura)}
             onChange={onChange}
           >
             <option value="">Seleccione...</option>
-            <option value="Matemáticas">Matemáticas</option>
-            <option value="Ciencias">Ciencias</option>
-            <option value="Historia">Historia</option>
+            {materias.map(m => (
+              <option key={m.id} value={String(m.id)}>
+                {m.nombre}
+              </option>
+            ))}
           </select>
         </div>
       </div>
 
-      <div className="form-group row">
-        <div className="col-sm-6 mb-3 mb-sm-0">
-          <label>Periodo Académico</label>
-          <select
-            name="periodo"
-            className="form-control"
-            value={nota.periodo}
-            onChange={onChange}
-          >
-            <option value="">Seleccione...</option>
-            <option value="2025-1">2025-1</option>
-            <option value="2025-2">2025-2</option>
-          </select>
-        </div>
-        <div className="col-sm-6">
-          <label>Docente</label>
-          <select
-            name="docente"
-            className="form-control"
-            value={nota.docente}
-            onChange={onChange}
-          >
-            <option value="">Seleccione...</option>
-            <option value="Yeison">Yeison</option>
-            <option value="María López">María López</option>
-          </select>
-        </div>
-      </div>
-
-      {/* Calificaciones */}
+      {/* Tipo y valor de nota */}
       <div className="card shadow mb-4">
         <div className="card-header py-3">
-          <h6 className="m-0 font-weight-bold text-primary">Calificaciones</h6>
+          <h6 className="m-0 font-weight-bold text-primary">Registro de Nota</h6>
         </div>
         <div className="card-body">
           <div className="form-group row">
-            <div className="col-sm-4 mb-3 mb-sm-0">
-              <label>Nota 1 (30%)</label>
+            <div className="col-sm-6 mb-3 mb-sm-0">
+              <label>Tipo de Nota</label>
+              <select
+                name="tipoNota"
+                className="form-control"
+                value={nota.tipoNota}
+                onChange={onChange}
+              >
+                <option value="">Seleccione...</option>
+                <option value="NOTA1">NOTA1</option>
+                <option value="NOTA2">NOTA2</option>
+                <option value="NOTA3">NOTA3</option>
+              </select>
+            </div>
+            <div className="col-sm-6">
+              <label>Valor</label>
               <input
                 type="number"
-                name="nota1"
+                name="valor"
                 className="form-control"
-                value={nota.nota1}
+                value={nota.valor}
                 onChange={onChange}
+                min="0"
+                max="5"
+                step="0.01"
               />
-              <small className="form-text text-muted">Primer corte evaluativo</small>
-            </div>
-            <div className="col-sm-4">
-              <label>Nota 2 (30%)</label>
-              <input
-                type="number"
-                name="nota2"
-                className="form-control"
-                value={nota.nota2}
-                onChange={onChange}
-              />
-              <small className="form-text text-muted">Segundo corte evaluativo</small>
-            </div>
-            <div className="col-sm-4">
-              <label>Nota 3 (40%)</label>
-              <input
-                type="number"
-                name="nota3"
-                className="form-control"
-                value={nota.nota3}
-                onChange={onChange}
-              />
-              <small className="form-text text-muted">Tercer corte evaluativo</small>
-            </div>
-          </div>
-
-          <div className="form-group">
-            <label>Promedio Calculado</label>
-            <div className="alert alert-info">
-              <strong>
-                {(
-                  (parseFloat(nota.nota1 || 0) * 0.3 +
-                    parseFloat(nota.nota2 || 0) * 0.3 +
-                    parseFloat(nota.nota3 || 0) * 0.4) || 0
-                ).toFixed(2)}
-              </strong>{" "}
-              - <span>Calculado automáticamente</span>
             </div>
           </div>
         </div>
