@@ -1,96 +1,99 @@
-import { useEffect, useState } from "react";
-
-export default function TablaNotas() {
-  const [notas, setNotas] = useState([]);
-
-  useEffect(() => {
-    const notasGuardadas = JSON.parse(localStorage.getItem("notas")) || [];
-    setNotas(notasGuardadas);
-  }, []);
-
-  const eliminarNota = (index) => {
-    const confirmacion = window.confirm("¿Estás seguro de que deseas eliminar esta nota?");
-    if (!confirmacion) return;
-
-    const nuevasNotas = [...notas];
-    nuevasNotas.splice(index, 1);
-    setNotas(nuevasNotas);
-    localStorage.setItem("notas", JSON.stringify(nuevasNotas));
-  };
-
+export default function TablaNotas({ notas, agrupadas = false }) {
   return (
-    <>
-      <div className="row">
-        <div className="input-group mb-3 rounded-pill overflow-hidden border w-50">
-          <span className="input-group-text bg-white border-0 pe-1">
-            <i className="fas fa-search"></i>
-          </span>
-          <input
-            id="search-input"
-            type="search"
-            className="form-control hide-focus border-0"
-            placeholder="Buscar Estudiante"
-          />
-        </div>
-
-        <table className="table align-middle mb-0 bg-white">
-          <thead className="bg-light">
-            <tr>
-              <th>#</th>
-              <th>Estudiante</th>
-              <th>Asignatura</th>
-              <th>Periodo</th>
-              <th>Nota 1</th>
-              <th>Nota 2</th>
-              <th>Nota 3</th>
+    <table className="table">
+      <thead>
+        <tr>
+          <th>Estudiante</th>
+          <th>Materia</th>
+          {agrupadas ? (
+            <>
+              <th>NOTA1</th>
+              <th>NOTA2</th>
+              <th>NOTA3</th>
               <th>Promedio</th>
               <th>Estado</th>
-              <th>Acciones</th>
-            </tr>
-          </thead>
-          <tbody>
-            {notas.length === 0 ? (
-              <tr>
-                <td colSpan="10" className="text-center">No hay notas registradas.</td>
-              </tr>
-            ) : (
-              notas.map((nota, index) => {
-                const promedio = parseFloat(nota.promedio || nota.valor || 0);
-                const estado = promedio >= 3.0 ? "Aprobado" : "Reprobado";
-                const badgeClass = promedio >= 3.0 ? "badge-success" : "badge-danger";
+            </>
+          ) : (
+            <>
+              <th>Tipo de Nota</th>
+              <th>Valor</th>
+              <th>Fecha</th>
+            </>
+          )}
+        </tr>
+      </thead>
+      <tbody>
+        {notas.map((item, index) => (
+          <tr key={index}>
+            <td>
+              {item.estudianteNombre ??
+                item.estudiante?.usuario?.nombre ??
+                `ID ${item.estudiante?.id}`}
+            </td>
+            <td>{item.asignatura ?? item.materia?.nombre ?? "—"}</td>
 
-                return (
-                  <tr key={index}>
-                    <td>{index + 1}</td>
-                    <td>{nota.estudiante || "—"}</td>
-                    <td>{nota.asignatura || "—"}</td>
-                    <td>{nota.periodo || nota.tipoevaluacion || "—"}</td>
-                    <td>{nota.nota1 || "—"}</td>
-                    <td>{nota.nota2 || "—"}</td>
-                    <td>{nota.nota3 || "—"}</td>
-                    <td>{promedio}</td>
-                    <td><span className={`badge ${badgeClass}`}>{estado}</span></td>
-                    <td>
-                      <button className="btn btn-sm btn-warning me-1">
-                        <i className="fas fa-edit"></i>
-                      </button>
-                      <button
-                        className="btn btn-sm btn-danger me-1"
-                        onClick={() => eliminarNota(index)}
-                      >
-                        <i className="fas fa-trash"></i>
-                      </button>
-                      <button className="btn btn-sm btn-info">
-                        <i className="fas fa-eye"></i>
-                      </button>
-                    </td>
-                  </tr>
-                );
-              })
+            {agrupadas ? (
+              <>
+                <td>
+                  {item.notas?.NOTA1 ?? "—"}
+                  <br />
+                  <small className="text-muted">
+                    {item.fechas?.NOTA1
+                      ? new Date(item.fechas.NOTA1).toLocaleDateString()
+                      : ""}
+                  </small>
+                </td>
+                <td>
+                  {item.notas?.NOTA2 ?? "—"}
+                  <br />
+                  <small className="text-muted">
+                    {item.fechas?.NOTA2
+                      ? new Date(item.fechas.NOTA2).toLocaleDateString()
+                      : ""}
+                  </small>
+                </td>
+                <td>
+                  {item.notas?.NOTA3 ?? "—"}
+                  <br />
+                  <small className="text-muted">
+                    {item.fechas?.NOTA3
+                      ? new Date(item.fechas.NOTA3).toLocaleDateString()
+                      : ""}
+                  </small>
+                </td>
+                <td>{item.promedio ?? "—"}</td>
+                <td>
+                  {item.promedio !== "—" ? (
+                    <button
+                      className={`btn btn-sm ${
+                        parseFloat(item.promedio) >= 3.0
+                          ? "btn-success"
+                          : "btn-danger"
+                      }`}
+                    >
+                      {parseFloat(item.promedio) >= 3.0
+                        ? "Aprobado"
+                        : "Reprobado"}
+                    </button>
+                  ) : (
+                    <span className="text-muted">Sin promedio</span>
+                  )}
+                </td>
+              </>
+            ) : (
+              <>
+                <td>{item.nombre}</td>
+                <td>{item.valor}</td>
+                <td>
+                  {item.fecha
+                    ? new Date(item.fecha).toLocaleDateString()
+                    : "—"}
+                </td>
+              </>
             )}
-          </tbody>
-        </table>
-      </div>
-    </>
+          </tr>
+        ))}
+      </tbody>
+    </table>
   );
 }

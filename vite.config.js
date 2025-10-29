@@ -6,16 +6,19 @@ export default defineConfig({
   plugins: [react()],
   server: {
     proxy: {
-      '/usuarios': {
-        target: 'http://localhost:8080',
-        changeOrigin: true,
-        secure: false,
-      },
-      '/notas': {
-        target: 'http://localhost:8080',
-        changeOrigin: true,
-        secure: false,
-      },
-    },
+  '/usuarios': {
+    target: 'http://localhost:8080',
+    changeOrigin: true,
+    secure: false,
+    rewrite: path => path.replace(/^\/usuarios/, '/academico/usuarios')
+  },
+  '/notas': {
+    target: 'http://localhost:8080',
+    changeOrigin: true,
+    secure: false,
+    rewrite: path => path.replace(/^\/notas/, '/academico/notas')
+  },
+}
+
   },
 })

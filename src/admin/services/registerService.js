@@ -1,6 +1,7 @@
 import axios from 'axios';
 
-const API_URL = 'http://localhost:3306/usuarios';
+const API_URL = 'http://localhost:8080/academico/usuarios';
+
 
 export const createRegister = (usuarioDTO) => axios.post(API_URL, usuarioDTO);
 
